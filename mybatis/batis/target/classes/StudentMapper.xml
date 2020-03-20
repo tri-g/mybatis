@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace='com.sivalabs.mybatisdemo.mappers.StudentMapper'>
+<select id='getStudebtById' parameterType='int' resultType='main.java.model.Student'>
+SELECT
+id as id,name as name,DOB as dob,email as email, phone as phone,address as address FROM empdetails where id=#{id}
+</select>
+
+<resultMap type='Student' id='StudentResult'>
+<id property='id' column='id'/>
+<id property='name' column='name'/>
+<id property='dob' column='DOB'/>
+<id property='email' column='email'/>
+<id property='phone' column='phone'/>
+<id property='address' column='address'/>
+</resultMap>
+<select id='getallstudents' resultMap='StudentResult'>
+select*from empdetails;
+</select>
+
+<insert id='insertstudent' parameterType='Student' useGeneratedKeys='true' keyProperty='StudentId'>
+insert into empdetails(name,dob,email,phone,address) values(#{name},#{dob},#{email},#{phone},#{address})
+</insert> 
+
+<update id="updatestudent" parameterType='Student'>
+update empdetails set name=#{name},email=#{email} where id=#{StudentId}
+</update>
+
+<delete id="deletestudent"  parameterType='int'>
+delete from empdetails where id=#{StudentId}
+</delete>
+</mapper>
